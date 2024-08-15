@@ -1,0 +1,15 @@
+meta {
+  name: Chat
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/chat?userMessage="Hello Jarvis!"
+  body: none
+  auth: none
+}
+
+params:query {
+  userMessage: "Hello Jarvis!"
+}
