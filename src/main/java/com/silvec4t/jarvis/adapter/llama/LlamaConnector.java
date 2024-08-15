@@ -13,29 +13,29 @@ import org.testcontainers.utility.DockerImageName;
 @Repository
 public class LlamaConnector {
 
-    // The model name to use (e.g., "orca-mini", "mistral", "llama2", "codellama", "phi", or
-    // "tinyllama")
-    String MODEL_NAME = "llama3";
+  // The model name to use (e.g., "orca-mini", "mistral", "llama2", "codellama", "phi", or
+  // "tinyllama")
+  String MODEL_NAME = "llama3";
 
-    ChatLanguageModel model;
+  ChatLanguageModel model;
 
-    public LlamaConnector() {
-        OllamaContainer ollama =
-                new OllamaContainer(DockerImageName.parse("langchain4j/ollama-" + MODEL_NAME + ":latest")
-                        .asCompatibleSubstituteFor("ollama/ollama"));
+  public LlamaConnector() {
+    OllamaContainer ollama =
+        new OllamaContainer(DockerImageName.parse("langchain4j/ollama-" + MODEL_NAME + ":latest")
+            .asCompatibleSubstituteFor("ollama/ollama"));
 
-        ollama.start();
+    ollama.start();
 
-        // Build the ChatLanguageModel
-        model = OllamaChatModel.builder().baseUrl(baseUrl(ollama)).modelName(MODEL_NAME).build();
-    }
+    // Build the ChatLanguageModel
+    model = OllamaChatModel.builder().baseUrl(baseUrl(ollama)).modelName(MODEL_NAME).build();
+  }
 
-    public Response<AiMessage> generateResponse(UserMessage userMessage) {
-        return model.generate(userMessage);
-    }
-
-    private static String baseUrl(GenericContainer<?> ollama) {
-        return String.format("http://%s:%d", ollama.getHost(), ollama.getFirstMappedPort());
-    }
+  public Response<AiMessage> generateResponse(UserMessage userMessage) {
+    return model.generate(userMessage);
+  }
+  
+  private static String baseUrl(GenericContainer<?> ollama) {
+    return String.format("http://%s:%d", ollama.getHost(), ollama.getFirstMappedPort());
+  }
 
 }

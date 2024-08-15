@@ -12,14 +12,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ChatService {
 
-    @Autowired
-    LlamaConnector llamaConnector;
+  @Autowired
+  LlamaConnector llamaConnector;
 
 
-    public String generateResponse(UserMessage userMessage) {
-        Response<AiMessage> response = llamaConnector.generateResponse(userMessage);
+  public String generateResponse(UserMessage userMessage) {
+    Response<AiMessage> response = llamaConnector.generateResponse(userMessage);
 
-        log.info("Received response with finishReason: {} tokenUsage: {} and of type: {}", response.finishReason(), response.tokenUsage(), response.content().type());
-        return response.content().text();
-    }
+    log.info("Received response with finishReason: {} tokenUsage: {} and of type: {}",
+        response.finishReason(), response.tokenUsage(), response.content().type());
+    return response.content().text();
+  }
 }

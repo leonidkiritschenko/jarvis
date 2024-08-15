@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1")
 public class ChatController {
 
-    @Autowired
-    ChatService chatService;
+  @Autowired
+  ChatService chatService;
 
-    @PostMapping(value = "/chat")
-    public String postChat(String userMessage) {
-
-        return chatService.generateResponse(UserMessage.from(userMessage));
-    }
+  @PostMapping(value = "/chat")
+  public String postChat(String userMessage) {
+    return chatService.generateResponse(UserMessage.from(userMessage));
+  }
 }
