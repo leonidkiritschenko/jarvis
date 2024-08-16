@@ -1,10 +1,11 @@
 package com.silvec4t.jarvis.adapter.llama;
 
 import dev.langchain4j.data.message.AiMessage;
-import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.output.Response;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.ollama.OllamaContainer;
@@ -30,10 +31,10 @@ public class LlamaConnector {
     model = OllamaChatModel.builder().baseUrl(baseUrl(ollama)).modelName(MODEL_NAME).build();
   }
 
-  public Response<AiMessage> generateResponse(UserMessage userMessage) {
-    return model.generate(userMessage);
+  public Response<AiMessage> generateResponse(List<ChatMessage> chatMessages) {
+    return model.generate(chatMessages);
   }
-  
+
   private static String baseUrl(GenericContainer<?> ollama) {
     return String.format("http://%s:%d", ollama.getHost(), ollama.getFirstMappedPort());
   }

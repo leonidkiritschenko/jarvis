@@ -5,11 +5,15 @@ meta {
 }
 
 post {
-  url: {{jarvis}}/api/v1/chat?userMessage="Hello Jarvis!"
+  url: {{jarvis}}/api/v1/chat/:chatId?userMessage="What is your name?"
   body: none
   auth: none
 }
 
 params:query {
-  userMessage: "Hello Jarvis!"
+  userMessage: "What is your name?"
+}
+
+params:path {
+  chatId: 0
 }
