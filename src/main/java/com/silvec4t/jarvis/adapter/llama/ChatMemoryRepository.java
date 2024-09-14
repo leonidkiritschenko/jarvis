@@ -9,18 +9,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ChatMemoryRepository {
 
-  private final Map<String, ChatMemory> chatMemoryMap = new HashMap<>();
+  private Map<String, MessageWindowChatMemory> messageWindowChatMemoryMap = new HashMap<>();
 
   public ChatMemory getChatMemory(String chatId) {
-    if (chatMemoryMap.containsKey(chatId)) {
-      return chatMemoryMap.get(chatId);
+    if (messageWindowChatMemoryMap.containsKey(chatId)) {
+      return messageWindowChatMemoryMap.get(chatId);
     } else {
-      ChatMemory chatMemory = MessageWindowChatMemory.builder()
+      MessageWindowChatMemory memory = MessageWindowChatMemory.builder()
           .id(chatId)
           .maxMessages(10)
           .build();
-      chatMemoryMap.put(chatId, chatMemory);
-      return chatMemory;
+      messageWindowChatMemoryMap.put(chatId, memory);
+      return memory;
     }
   }
 }
