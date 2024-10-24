@@ -20,29 +20,14 @@ public class ChatService {
   @Autowired
   private AmiCoreFactory amiCoreFactory;
 
-
   public String generateResponse(String chatId, UserMessage userMessage) {
     AmiCore assistant = amiCoreFactory.create(
         "You behave and speak like Jarvis, the AI assistant.",
         chatMemoryRepository.getChatMemory("assistant"));
     Response<AiMessage> response = assistant.chat(List.of(userMessage));
 
-    thinkAboutResponse(response.content(), userMessage);
-
     log.info("Received response with finishReason: {} tokenUsage: {} and of type: {}",
         response.finishReason(), response.tokenUsage(), response.content().type());
-    return response.content().text();
-  }
-
-  public String thinkAboutResponse(AiMessage aiMessage, UserMessage userMessage) {
-    AmiCore kitchen = amiCoreFactory.create(
-        "Your task is to listen in and list down all the items that are relevant for topic kitchen.",
-        chatMemoryRepository.getChatMemory("kitchen"));
-
-    Response<AiMessage> response = kitchen.chat(List.of(aiMessage, userMessage));
-
-    String text = response.content().text();
-    System.out.println(text);
     return response.content().text();
   }
 }

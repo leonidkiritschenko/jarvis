@@ -15,7 +15,7 @@ public class AmiCoreFactory {
   private Map<String, AmiCore> amiCoreMap = new HashMap<>();
 
   public AmiCore create(String systemMessage, ChatMemory chatMemory) {
-    String MODEL_NAME = "llama3.1";
+    String MODEL_NAME = "llama3.2:1b";
 
     if (!amiCoreMap.containsValue(systemMessage)) {
       AmiCore amiCore = AiServices.builder(AmiCore.class)
